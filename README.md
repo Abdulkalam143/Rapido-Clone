@@ -6,7 +6,7 @@
 
 ## 🚀 Live Demo
 
-🔗 [View Live](http://127.0.0.1:5500/index.html)
+🔗 [GitHub Repo](https://github.com/Abdulkalam143/Rapido-Clone)
 
 ---
 
@@ -83,7 +83,7 @@ rapido-clone/
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/Abdulkalam143/rapido-clone.git
+   git clone https://github.com/Abdulkalam143/Rapido-Clone.git
    cd rapido-clone
    ```
 
