@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Rapido – Bike Taxi</title>
+
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       PHONE FRAME WRAPPER
+  ════════════════════════════════════ -->
+  <div class="phone-frame">
+    <div class="phone-screen">
+
+      <!-- ── 1. SPLASH SCREEN ─────────────────── -->
+      <div class="screen active" id="screen-splash">
+        <div class="splash-bg">
+          <div class="splash-ripple r1"></div>
+          <div class="splash-ripple r2"></div>
+          <div class="splash-ripple r3"></div>
+        </div>
+        <div class="splash-content">
+          <div class="logo-wrap">
+            <div class="logo-icon">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h1 class="logo-text">rapido</h1>
+            <p class="logo-tagline">India's #1 Bike Taxi</p>
+          </div>
+          <div class="splash-loader">
+            <div class="loader-bar"><div class="loader-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 2. LOGIN SCREEN ──────────────────── -->
+      <div class="screen" id="screen-login">
+        <div class="login-header">
+          <div class="login-logo">
+            <div class="logo-icon sm"><i class="fa-solid fa-bolt"></i></div>
+            <span class="logo-text sm">rapido</span>
+          </div>
+        </div>
+
+        <div class="login-hero">
+          <div class="hero-illus">
+            <div class="road-strip"></div>
+            <div class="bike-anim">
+              <i class="fa-solid fa-motorcycle"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-card">
+          <h2 class="login-title">Welcome Back! <span>👋</span></h2>
+          <p class="login-sub">Enter your mobile number to continue</p>
+
+          <div class="input-group">
+            <div class="country-code">
+              <span class="flag">🇮🇳</span>
+              <span>+91</span>
+            </div>
+            <input
+              type="tel"
+              id="phone-input"
+              class="phone-field"
+              placeholder="Mobile Number"
+              maxlength="10"
+              inputmode="numeric"
+              pattern="[0-9]{10}"
+            />
+          </div>
+          <div class="error-msg" id="phone-error">Please enter a valid 10-digit number</div>
+
+          <button class="btn-primary" id="btn-otp">
+            <span>Get OTP</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+
+          <p class="login-note">By continuing you agree to our <u>Terms</u> &amp; <u>Privacy Policy</u></p>
+        </div>
+      </div>
+
+      <!-- ── 3. OTP SCREEN ────────────────────── -->
+      <div class="screen" id="screen-otp">
+        <div class="otp-top">
+          <button class="back-btn" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i></button>
+          <div class="login-logo">
+            <div class="logo-icon sm"><i class="fa-solid fa-bolt"></i></div>
+            <span class="logo-text sm">rapido</span>
+          </div>
+        </div>
+
+        <div class="otp-body">
+          <div class="otp-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+          <h2>Verify OTP</h2>
+          <p>Sent to <strong id="otp-number">+91 XXXXXXXXXX</strong></p>
+
+          <div class="otp-boxes">
+            <input class="otp-box" type="text" maxlength="1" inputmode="numeric" />
+            <input class="otp-box" type="text" maxlength="1" inputmode="numeric" />
+            <input class="otp-box" type="text" maxlength="1" inputmode="numeric" />
+            <input class="otp-box" type="text" maxlength="1" inputmode="numeric" />
+          </div>
+
+          <p class="resend-txt">Didn't receive? <button class="link-btn" id="resend-btn">Resend in <span id="countdown">30</span>s</button></p>
+
+          <button class="btn-primary" id="btn-verify">
+            <span>Verify &amp; Continue</span>
+            <i class="fa-solid fa-check"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── 4. HOME SCREEN ───────────────────── -->
+      <div class="screen" id="screen-home">
+        <!-- Top Bar -->
+        <div class="home-topbar">
+          <div class="topbar-left">
+            <div class="user-avatar">A</div>
+            <div>
+              <p class="topbar-greet">Hi, Abdul! 👋</p>
+              <p class="topbar-loc"><i class="fa-solid fa-location-dot"></i> Hyderabad, IN</p>
+            </div>
+          </div>
+          <button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="badge">2</span></button>
+        </div>
+
+        <!-- Promo Banner -->
+        <div class="promo-banner">
+          <div class="promo-text">
+            <span class="promo-tag">LIMITED OFFER</span>
+            <p>₹50 off on your first <strong>3 rides!</strong></p>
+          </div>
+          <div class="promo-icon"><i class="fa-solid fa-gift"></i></div>
+        </div>
+
+        <!-- Location Inputs -->
+        <div class="location-card">
+          <div class="loc-row">
+            <div class="loc-dot green"></div>
+            <input type="text" class="loc-input" id="pickup-input" placeholder="Pickup location" value="Madhapur, Hyderabad" />
+            <button class="loc-gps" title="Use current location"><i class="fa-solid fa-crosshairs"></i></button>
+          </div>
+          <div class="loc-divider">
+            <div class="loc-line"></div>
+            <button class="swap-btn" id="swap-btn" title="Swap"><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
+          </div>
+          <div class="loc-row">
+            <div class="loc-dot red"></div>
+            <input type="text" class="loc-input" id="drop-input" placeholder="Where are you going?" />
+          </div>
+        </div>
+
+        <!-- Quick Destinations -->
+        <div class="quick-section">
+          <p class="section-label">Recent Places</p>
+          <div class="quick-chips">
+            <button class="quick-chip" onclick="fillDrop('HITEC City')"><i class="fa-solid fa-briefcase"></i> HITEC City</button>
+            <button class="quick-chip" onclick="fillDrop('Jubilee Hills')"><i class="fa-solid fa-house"></i> Home</button>
+            <button class="quick-chip" onclick="fillDrop('Banjara Hills')"><i class="fa-solid fa-utensils"></i> Banjara Hills</button>
+          </div>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div class="map-placeholder">
+          <div class="map-grid"></div>
+          <div class="map-route"></div>
+          <div class="map-pin pickup"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="map-pin drop"><i class="fa-solid fa-flag-checkered"></i></div>
+          <div class="map-bike"><i class="fa-solid fa-motorcycle"></i></div>
+          <div class="map-label">Live Map Preview</div>
+          <div class="map-badge"><i class="fa-solid fa-shield-halved"></i> Safe Ride Guaranteed</div>
+        </div>
+
+        <!-- Book Ride Button -->
+        <div class="fab-zone">
+          <button class="btn-book" id="btn-book">
+            <i class="fa-solid fa-motorcycle"></i>
+            <span>Book a Ride</span>
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Bottom Nav -->
+        <nav class="bottom-nav">
+          <button class="nav-item active" data-screen="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+          <button class="nav-item" data-screen="rides"><i class="fa-solid fa-clock-rotate-left"></i><span>My Rides</span></button>
+          <button class="nav-item" data-screen="profile"><i class="fa-solid fa-user"></i><span>Profile</span></button>
+        </nav>
+      </div>
+
+      <!-- ── 5. RIDE OPTIONS SCREEN ────────────── -->
+      <div class="screen" id="screen-rides-option">
+        <div class="rides-header">
+          <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-arrow-left"></i></button>
+          <h2>Choose Your Ride</h2>
+          <button class="filter-btn"><i class="fa-solid fa-sliders"></i></button>
+        </div>
+
+        <!-- Route Summary -->
+        <div class="route-summary">
+          <div class="route-point">
+            <div class="dot green-dot"></div>
+            <p id="rs-pickup">Madhapur, Hyderabad</p>
+          </div>
+          <div class="route-connector"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+          <div class="route-point">
+            <div class="dot red-dot"></div>
+            <p id="rs-drop">HITEC City, Hyderabad</p>
+          </div>
+          <div class="route-dist"><i class="fa-solid fa-road"></i> 4.2 km</div>
+        </div>
+
+        <!-- Ride Cards -->
+        <div class="ride-cards">
+
+          <!-- BIKE -->
+          <div class="ride-card selected" data-ride="bike" onclick="selectRide(this)">
+            <div class="ride-card-badge">FASTEST</div>
+            <div class="ride-icon bike">
+              <!-- Motorcycle SVG -->
+              <svg viewBox="0 0 56 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="34">
+                <!-- Rear wheel -->
+                <circle cx="10" cy="30" r="8" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+                <circle cx="10" cy="30" r="3" fill="#b8860b"/>
+                <!-- Front wheel -->
+                <circle cx="46" cy="30" r="8" stroke="#b8860b" stroke-width="2.5" fill="none"/>
+                <circle cx="46" cy="30" r="3" fill="#b8860b"/>
+                <!-- Frame body -->
+                <path d="M10 30 L22 14 L34 14 L46 30" stroke="#b8860b" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M22 14 L28 22 L34 14" stroke="#b8860b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Engine/body fill -->
+                <path d="M24 20 Q28 16 32 20 L34 28 L22 28 Z" fill="#b8860b" opacity="0.35"/>
+                <!-- Handlebar -->
+                <path d="M38 14 L46 20" stroke="#b8860b" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M44 16 L48 14" stroke="#b8860b" stroke-width="2" stroke-linecap="round"/>
+                <!-- Seat -->
+                <path d="M22 14 Q28 10 34 14" stroke="#b8860b" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Exhaust -->
+                <path d="M12 26 L6 28 L4 30" stroke="#b8860b" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Rider silhouette -->
+                <ellipse cx="28" cy="11" rx="3.5" ry="4" fill="#b8860b" opacity="0.7"/>
+                <path d="M26 15 Q28 20 30 22 L32 20 Q30 16 28 15 Z" fill="#b8860b" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="ride-info">
+              <h3>Bike</h3>
+              <p><i class="fa-regular fa-clock"></i> 3 min away</p>
+            </div>
+            <div class="ride-price-wrap">
+              <p class="ride-price">₹49</p>
+              <p class="ride-eta">~10 min</p>
+            </div>
+            <div class="ride-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <!-- AUTO RICKSHAW -->
+          <div class="ride-card" data-ride="auto" onclick="selectRide(this)">
+            <div class="ride-icon auto">
+              <!-- Auto Rickshaw SVG -->
+              <svg viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="48" height="38">
+                <!-- Rear wheel -->
+                <circle cx="12" cy="34" r="7" stroke="#059669" stroke-width="2.5" fill="none"/>
+                <circle cx="12" cy="34" r="2.5" fill="#059669"/>
+                <!-- Front wheel -->
+                <circle cx="44" cy="34" r="7" stroke="#059669" stroke-width="2.5" fill="none"/>
+                <circle cx="44" cy="34" r="2.5" fill="#059669"/>
+                <!-- Body / cabin -->
+                <rect x="8" y="12" width="34" height="20" rx="5" fill="#059669" opacity="0.18"/>
+                <path d="M8 24 Q8 12 16 10 L40 10 Q48 10 48 20 L48 30 Q48 34 44 34 L12 34 Q8 34 8 30 Z" stroke="#059669" stroke-width="2" fill="none"/>
+                <!-- Roof dome (auto has a rounded hood) -->
+                <path d="M14 18 Q14 8 24 7 L36 7 Q44 7 44 16" stroke="#059669" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <!-- Windshield -->
+                <path d="M16 18 Q16 12 24 11 L36 11 Q42 11 42 18 Z" fill="#059669" opacity="0.25"/>
+                <!-- Window lines -->
+                <line x1="28" y1="11" x2="28" y2="18" stroke="#059669" stroke-width="1.2"/>
+                <!-- Front fork / handle -->
+                <path d="M44 27 L51 22" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                <path d="M49 20 L53 22 L50 24" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Roof stripe (yellow band — auto trademark) -->
+                <path d="M14 10 L42 10" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+                <!-- Axle bar -->
+                <line x1="12" y1="34" x2="44" y2="34" stroke="#059669" stroke-width="1.2" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="ride-info">
+              <h3>Auto</h3>
+              <p><i class="fa-regular fa-clock"></i> 5 min away</p>
+            </div>
+            <div class="ride-price-wrap">
+              <p class="ride-price">₹79</p>
+              <p class="ride-eta">~12 min</p>
+            </div>
+            <div class="ride-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <!-- CAB -->
+          <div class="ride-card" data-ride="cab" onclick="selectRide(this)">
+            <div class="ride-icon cab">
+              <!-- Car / Cab SVG -->
+              <svg viewBox="0 0 60 42" fill="none" xmlns="http://www.w3.org/2000/svg" width="50" height="36">
+                <!-- Rear wheel -->
+                <circle cx="13" cy="32" r="7.5" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+                <circle cx="13" cy="32" r="2.8" fill="#2563eb"/>
+                <!-- Front wheel -->
+                <circle cx="47" cy="32" r="7.5" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+                <circle cx="47" cy="32" r="2.8" fill="#2563eb"/>
+                <!-- Car body bottom -->
+                <rect x="5" y="22" width="50" height="10" rx="3" fill="#2563eb" opacity="0.15"/>
+                <path d="M5 28 Q5 22 8 22 L52 22 Q55 22 55 28 L55 32 Q55 34 52 34 L8 34 Q5 34 5 32 Z" stroke="#2563eb" stroke-width="2" fill="none"/>
+                <!-- Car cabin / roof -->
+                <path d="M15 22 L20 12 Q22 9 26 9 L38 9 Q42 9 44 12 L48 22 Z" stroke="#2563eb" stroke-width="2" fill="#2563eb" opacity="0.12"/>
+                <!-- Windshield -->
+                <path d="M20 21 L24 12 L38 12 L43 21 Z" fill="#2563eb" opacity="0.28"/>
+                <!-- Rear window -->
+                <path d="M16 21 L20 14 L24 14 L20 21 Z" fill="#2563eb" opacity="0.2"/>
+                <!-- Center pillar -->
+                <line x1="31" y1="9" x2="31" y2="22" stroke="#2563eb" stroke-width="1.5" opacity="0.5"/>
+                <!-- Door line -->
+                <line x1="31" y1="22" x2="31" y2="34" stroke="#2563eb" stroke-width="1.2" opacity="0.3"/>
+                <!-- Headlight -->
+                <ellipse cx="53" cy="26" rx="3" ry="2" fill="#2563eb" opacity="0.5"/>
+                <!-- Tail light -->
+                <ellipse cx="7" cy="26" rx="3" ry="2" fill="#2563eb" opacity="0.4"/>
+                <!-- Rapido stripe on roof -->
+                <path d="M22 9 L40 9" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="ride-info">
+              <h3>RapidoCab</h3>
+              <p><i class="fa-regular fa-clock"></i> 8 min away</p>
+            </div>
+            <div class="ride-price-wrap">
+              <p class="ride-price">₹149</p>
+              <p class="ride-eta">~14 min</p>
+            </div>
+            <div class="ride-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+        </div>
+
+        <!-- Offers -->
+        <div class="offer-row">
+          <button class="offer-pill"><i class="fa-solid fa-tag"></i> Apply Coupon</button>
+          <button class="offer-pill wallet"><i class="fa-solid fa-wallet"></i> ₹120 Wallet</button>
+        </div>
+
+        <!-- Confirm Booking -->
+        <div class="confirm-zone">
+          <div class="fare-breakup">
+            <span>Estimated Fare</span>
+            <span class="fare-val" id="fare-val">₹49</span>
+          </div>
+          <button class="btn-confirm" id="btn-confirm">
+            <span>Confirm Bike</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── 6. BOOKING CONFIRMATION SCREEN ────── -->
+      <div class="screen" id="screen-confirm">
+
+        <!-- Animated Status -->
+        <div class="booking-status-wrap">
+          <div class="status-rings">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+          </div>
+          <div class="status-icon"><i class="fa-solid fa-motorcycle"></i></div>
+          <h2 class="status-title" id="status-title">Finding you a ride…</h2>
+          <p class="status-sub" id="status-sub">Connecting with nearby captains</p>
+        </div>
+
+        <!-- Progress Track -->
+        <div class="progress-steps">
+          <div class="step done" id="step-1"><div class="step-dot"></div><span>Booked</span></div>
+          <div class="step-line done-line"></div>
+          <div class="step active" id="step-2"><div class="step-dot"></div><span>Captain found</span></div>
+          <div class="step-line"></div>
+          <div class="step" id="step-3"><div class="step-dot"></div><span>On the way</span></div>
+          <div class="step-line"></div>
+          <div class="step" id="step-4"><div class="step-dot"></div><span>Arrived</span></div>
+        </div>
+
+        <!-- Driver Card -->
+        <div class="driver-card" id="driver-card">
+          <div class="driver-avatar-wrap">
+            <div class="driver-avatar">R</div>
+            <div class="driver-status-dot"></div>
+          </div>
+          <div class="driver-info">
+            <h3>Ravi Kumar</h3>
+            <div class="driver-meta">
+              <span class="rating"><i class="fa-solid fa-star"></i> 4.8</span>
+              <span class="trips">1,243 trips</span>
+            </div>
+            <div class="vehicle-tag">
+              <i class="fa-solid fa-motorcycle"></i>
+              <span>TS 09 AX 4721</span>
+            </div>
+          </div>
+          <div class="driver-actions">
+            <button class="action-btn call"><i class="fa-solid fa-phone"></i></button>
+            <button class="action-btn msg"><i class="fa-solid fa-message"></i></button>
+          </div>
+        </div>
+
+        <!-- ETA Bar -->
+        <div class="eta-bar">
+          <div class="eta-item">
+            <i class="fa-solid fa-location-arrow"></i>
+            <div>
+              <p class="eta-label">Captain ETA</p>
+              <p class="eta-val">4 min</p>
+            </div>
+          </div>
+          <div class="eta-divider"></div>
+          <div class="eta-item">
+            <i class="fa-solid fa-road"></i>
+            <div>
+              <p class="eta-label">Ride Distance</p>
+              <p class="eta-val">4.2 km</p>
+            </div>
+          </div>
+          <div class="eta-divider"></div>
+          <div class="eta-item">
+            <i class="fa-solid fa-indian-rupee-sign"></i>
+            <div>
+              <p class="eta-label">Fare</p>
+              <p class="eta-val" id="conf-fare">₹49</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOS + Cancel -->
+        <div class="action-row">
+          <button class="sos-btn"><i class="fa-solid fa-triangle-exclamation"></i> SOS</button>
+          <button class="cancel-btn" onclick="navigateTo('home')">Cancel Ride</button>
+          <button class="share-btn"><i class="fa-solid fa-share-nodes"></i> Share</button>
+        </div>
+
+        <nav class="bottom-nav">
+          <button class="nav-item active" data-screen="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+          <button class="nav-item" data-screen="rides"><i class="fa-solid fa-clock-rotate-left"></i><span>My Rides</span></button>
+          <button class="nav-item" data-screen="profile"><i class="fa-solid fa-user"></i><span>Profile</span></button>
+        </nav>
+      </div>
+
+      <!-- ── 7. MY RIDES SCREEN ────────────────── -->
+      <div class="screen" id="screen-my-rides">
+        <div class="simple-header">
+          <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-arrow-left"></i></button>
+          <h2>My Rides</h2>
+          <button class="filter-btn"><i class="fa-solid fa-filter"></i></button>
+        </div>
+
+        <div class="rides-list">
+          <div class="rides-list-item">
+            <div class="rli-icon bike-col"><i class="fa-solid fa-motorcycle"></i></div>
+            <div class="rli-info">
+              <h4>Bike Ride</h4>
+              <p>Madhapur → HITEC City</p>
+              <span class="rli-date">Today, 10:32 AM</span>
+            </div>
+            <div class="rli-right">
+              <span class="rli-price">₹49</span>
+              <span class="rli-status completed">Completed</span>
+            </div>
+          </div>
+
+          <div class="rides-list-item">
+            <div class="rli-icon auto-col"><i class="fa-solid fa-taxi"></i></div>
+            <div class="rli-info">
+              <h4>Auto Ride</h4>
+              <p>Banjara Hills → Jubilee Hills</p>
+              <span class="rli-date">Yesterday, 7:15 PM</span>
+            </div>
+            <div class="rli-right">
+              <span class="rli-price">₹79</span>
+              <span class="rli-status completed">Completed</span>
+            </div>
+          </div>
+
+          <div class="rides-list-item">
+            <div class="rli-icon cab-col"><i class="fa-solid fa-car-side"></i></div>
+            <div class="rli-info">
+              <h4>RapidoCab</h4>
+              <p>Secunderabad → Gachibowli</p>
+              <span class="rli-date">2 days ago</span>
+            </div>
+            <div class="rli-right">
+              <span class="rli-price">₹149</span>
+              <span class="rli-status cancelled">Cancelled</span>
+            </div>
+          </div>
+        </div>
+
+        <nav class="bottom-nav">
+          <button class="nav-item" data-screen="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+          <button class="nav-item active" data-screen="rides"><i class="fa-solid fa-clock-rotate-left"></i><span>My Rides</span></button>
+          <button class="nav-item" data-screen="profile"><i class="fa-solid fa-user"></i><span>Profile</span></button>
+        </nav>
+      </div>
+
+      <!-- ── 8. PROFILE SCREEN ─────────────────── -->
+      <div class="screen" id="screen-profile">
+        <div class="profile-hero">
+          <div class="profile-bg-shape"></div>
+          <div class="profile-avatar-big">A</div>
+          <h2 class="profile-name">Shaik Abdul Kalam</h2>
+          <p class="profile-phone"><i class="fa-solid fa-mobile-screen"></i> +91 98765 43210</p>
+          <div class="profile-badges">
+            <span class="pbadge"><i class="fa-solid fa-star"></i> 4.9 Rating</span>
+            <span class="pbadge"><i class="fa-solid fa-motorcycle"></i> 28 Rides</span>
+          </div>
+        </div>
+
+        <div class="profile-menu">
+          <div class="menu-item"><i class="fa-solid fa-wallet"></i><span>Rapido Wallet <strong>₹120</strong></span><i class="fa-solid fa-chevron-right arrow"></i></div>
+          <div class="menu-item"><i class="fa-solid fa-tag"></i><span>My Coupons</span><i class="fa-solid fa-chevron-right arrow"></i></div>
+          <div class="menu-item"><i class="fa-solid fa-headset"></i><span>Help &amp; Support</span><i class="fa-solid fa-chevron-right arrow"></i></div>
+          <div class="menu-item"><i class="fa-solid fa-shield-halved"></i><span>Safety</span><i class="fa-solid fa-chevron-right arrow"></i></div>
+          <div class="menu-item"><i class="fa-solid fa-gear"></i><span>Settings</span><i class="fa-solid fa-chevron-right arrow"></i></div>
+          <div class="menu-item danger" onclick="navigateTo('login')"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span><i class="fa-solid fa-chevron-right arrow"></i></div>
+        </div>
+
+        <nav class="bottom-nav">
+          <button class="nav-item" data-screen="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+          <button class="nav-item" data-screen="rides"><i class="fa-solid fa-clock-rotate-left"></i><span>My Rides</span></button>
+          <button class="nav-item active" data-screen="profile"><i class="fa-solid fa-user"></i><span>Profile</span></button>
+        </nav>
+      </div>
+
+    </div><!-- /phone-screen -->
+  </div><!-- /phone-frame -->
+
+  <script src="script.js"></script>
+</body>
+</html>
